@@ -22,6 +22,8 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'description') ?>
 
     <?= $form->field($model, 'created_on') ?>
+    
+    <?= $form->field($model, 'created_by_user')?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

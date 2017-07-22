@@ -28,6 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'title',
             'description:ntext',
             'created_on',
+            'created_by_user', 
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

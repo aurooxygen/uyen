@@ -22,6 +22,8 @@ class m170719_091213_rbac_init extends Migration
     {
         $auth = Yii::$app->authManager;
 
+        //add 
+        //add "manage user" permission
         $manageUsers = $auth->createPermission('manageUsers');
         $manageUsers->description = 'Manage Users';
         $auth->add($manageUsers); 

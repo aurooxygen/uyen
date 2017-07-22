@@ -10,7 +10,10 @@ use Yii;
  * @property integer $id
  * @property string $title
  * @property string $description
- * @property integer $created_on
+ * @property string $created_on
+ * @property integer $created_by_user
+ *
+ * @property User $id0
  */
 class Survey extends \yii\db\ActiveRecord
 {
@@ -28,10 +31,12 @@ class Survey extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['title', 'description', 'created_on'], 'required'],
+            [['title', 'description', 'created_on', 'created_by_user'], 'required'],
             [['description'], 'string'],
-            [['created_on'], 'integer'],
+            [['created_on'], 'safe'],
+            [['created_by_user'], 'integer'],
             [['title'], 'string', 'max' => 255],
+            [['id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['id' => 'id']],
         ];
     }
 
@@ -45,15 +50,15 @@ class Survey extends \yii\db\ActiveRecord
             'title' => 'Title',
             'description' => 'Description',
             'created_on' => 'Created On',
+            'created_by_user' => 'Created By',
         ];
     }
 
     /**
-     * @inheritdoc
-     * @return SurveyQuery the active query used by this AR class.
+     * @return \yii\db\ActiveQuery
      */
-    public static function find()
+    public function getId0()
     {
-        return new SurveyQuery(get_called_class());
+        return $this->hasOne(User::className(), ['id' => 'id']);
     }
 }
