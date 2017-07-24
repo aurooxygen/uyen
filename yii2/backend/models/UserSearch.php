@@ -6,6 +6,7 @@ use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use backend\models\User;
+use backend\models\AuthAssignment; 
 
 /**
  * UserSearch represents the model behind the search form about `backend\models\User`.
@@ -15,11 +16,13 @@ class UserSearch extends User
     /**
      * @inheritdoc
      */
+    //public $user_id;
+
     public function rules()
     {
         return [
-            [['id', 'status', 'created_at', 'updated_at'], 'integer'],
-            [['username', 'first_name', 'last_name', 'auth_key', 'password_hash', 'password_reset_token', 'email'], 'safe'],
+            [['id','status'], 'integer'],
+            [['username','first_name', 'last_name', 'email', 'created_at', 'updated_at'], 'safe'],
         ];
     }
 
@@ -42,6 +45,7 @@ class UserSearch extends User
     public function search($params)
     {
         $query = User::find();
+        $query->joinWith(['authAssignments']); 
 
         // add conditions that should always apply here
 
@@ -71,7 +75,8 @@ class UserSearch extends User
             ->andFilterWhere(['like', 'auth_key', $this->auth_key])
             ->andFilterWhere(['like', 'password_hash', $this->password_hash])
             ->andFilterWhere(['like', 'password_reset_token', $this->password_reset_token])
-            ->andFilterWhere(['like', 'email', $this->email]);
+            ->andFilterWhere(['like', 'email', $this->email]);  
+            //->andFilterWhere(['like', 'item_name', $this->item_name]);
 
         return $dataProvider;
     }

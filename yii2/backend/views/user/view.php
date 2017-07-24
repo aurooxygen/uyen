@@ -3,6 +3,9 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
+use backend\models\AuthAssignment; 
+use backend\models\User; 
+use backend\models\UserSearch;
 /* @var $this yii\web\View */
 /* @var $model common\modules\auth\models\User */
 
@@ -28,17 +31,18 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
+            //'id',
             'username',
             'first_name',
             'last_name',
-            'auth_key',
-            'password_hash',
-            'password_reset_token',
-            'email:email',
+           // 'auth_key',
+           // 'password_hash',
+           // 'password_reset_token',
+           // 'email:email',
             'status',
             'created_at',
             'updated_at',
+            'authAssignments.item_name',
         ],
     ]) ?>
 

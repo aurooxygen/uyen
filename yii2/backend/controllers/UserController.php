@@ -5,6 +5,7 @@ namespace backend\controllers;
 use Yii;
 use backend\models\User;
 use backend\models\UserSearch;
+use backend\models\AuthAssignment;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -82,6 +83,7 @@ class UserController extends Controller
      */
     public function actionUpdate($id)
     {
+        
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {

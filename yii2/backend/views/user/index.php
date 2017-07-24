@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use backend\models\User;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\modules\auth\models\UserSearch */
@@ -24,10 +25,12 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
+            //'id',
             'username',
             'first_name',
             'last_name',
+
+
             //'auth_key',
             // 'password_hash',
             // 'password_reset_token',

@@ -3,7 +3,9 @@
 namespace backend\models;
 
 use Yii;
-
+use backend\models\AuthAssignment; 
+use backend\models\User; 
+use backend\models\AuthItem;
 /**
  * This is the model class for table "user".
  *
@@ -38,7 +40,7 @@ class User extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['username', 'first_name', 'last_name', 'auth_key', 'password_hash', 'email', 'created_at', 'updated_at'], 'required'],
+            [['authAssignments.item_name','username', 'first_name', 'last_name', 'auth_key', 'password_hash', 'email', 'created_at', 'updated_at'], 'required'],
             [['status', 'created_at', 'updated_at'], 'integer'],
             [['username', 'auth_key'], 'string', 'max' => 32],
             [['first_name', 'last_name', 'password_hash', 'password_reset_token', 'email'], 'string', 'max' => 255],
@@ -51,17 +53,18 @@ class User extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
+            'id' => 'Role',
             'username' => 'Username',
             'first_name' => 'First Name',
             'last_name' => 'Last Name',
-            'auth_key' => 'Auth Key',
-            'password_hash' => 'Password Hash',
-            'password_reset_token' => 'Password Reset Token',
+            //'auth_key' => 'Auth Key',
+            //'password_hash' => 'Password Hash',
+           // 'password_reset_token' => 'Password Reset Token',
             'email' => 'Email',
             'status' => 'Status',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
+            'authAssignments.item_name'=> 'Role', 
         ];
     }
 
@@ -70,7 +73,7 @@ class User extends \yii\db\ActiveRecord
      */
     public function getAuthAssignments()
     {
-        return $this->hasMany(AuthAssignment::className(), ['user_id' => 'id']);
+        return $this->hasOne(AuthAssignment::className(), ['user_id' => 'id']);
     }
 
     /**
@@ -78,6 +81,6 @@ class User extends \yii\db\ActiveRecord
      */
     public function getItemNames()
     {
-        return $this->hasMany(AuthItem::className(), ['name' => 'item_name'])->viaTable('auth_assignment', ['user_id' => 'id']);
+        return $this->hasOne(AuthItem::className(), ['name' => 'item_name'])->viaTable('auth_assignment', ['user_id' => 'id']);
     }
 }
